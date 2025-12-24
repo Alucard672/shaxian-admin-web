@@ -1,10 +1,9 @@
-export default (initialState: API.UserInfo) => {
-  // 在这里按照初始化数据定义项目中的权限，统一管理
-  // 参考文档 https://umijs.org/docs/max/access
-  const canSeeAdmin = !!(
-    initialState && initialState.name !== 'dontHaveAccess'
-  );
+export default (initialState: { currentUser?: API.UserSession; isLogin?: boolean }) => {
+  // 先行开发阶段，关闭登录校验，全部放行
+  const isLogin = true;
   return {
-    canSeeAdmin,
+    isLogin,
+    canAccessTenant: true,
+    canAccessEmployee: true,
   };
 };
