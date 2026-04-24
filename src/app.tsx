@@ -1,10 +1,8 @@
 // 运行时配置
 
-import './suppressWarnings';
+import { history, RequestConfig, RunTimeLayoutConfig } from '@umijs/max';
+import { App, message } from 'antd';
 import React from 'react';
-import { history, RunTimeLayoutConfig } from '@umijs/max';
-import { message, App } from 'antd';
-import { RequestConfig } from '@umijs/max';
 
 // 全局初始化数据配置
 export async function getInitialState(): Promise<{
@@ -27,24 +25,7 @@ export async function getInitialState(): Promise<{
     }
   }
 
-  // 默认 Mock 用户
-  const mockSession = 'dev-session-' + Date.now();
-  const mockUser: API.UserSession = {
-    sessionId: mockSession,
-    userId: 1,
-    username: '开发用户',
-    phone: '13000000000',
-    role: 'admin',
-    tenantId: 1,
-    tenantName: '开发租户',
-    tenantCode: 'DEV',
-  };
-  localStorage.setItem('sessionId', mockSession);
-  localStorage.setItem('userInfo', JSON.stringify(mockUser));
-  return {
-    currentUser: mockUser,
-    isLogin: true,
-  };
+  return { isLogin: false };
 }
 
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {

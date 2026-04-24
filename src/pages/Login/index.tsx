@@ -1,8 +1,8 @@
 import { login } from '@/services/auth';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
-import { Button, message } from 'antd';
-import { history, useModel, useAccess } from '@umijs/max';
+import { history, useAccess, useModel } from '@umijs/max';
+import { message } from 'antd';
 import React, { useEffect } from 'react';
 import styles from './index.less';
 
@@ -24,7 +24,7 @@ const Login: React.FC = () => {
         // 保存登录信息到 localStorage
         localStorage.setItem('sessionId', response.data.sessionId || '');
         localStorage.setItem('userInfo', JSON.stringify(response.data));
-        
+
         // 更新全局状态
         await setInitialState((s: any) => ({
           ...s,
@@ -39,46 +39,18 @@ const Login: React.FC = () => {
           const urlParams = new URL(window.location.href).searchParams;
           history.push(urlParams.get('redirect') || '/home');
         }, 0);
-        
+
         return true;
       } else {
         message.error(response.message || '登录失败，请检查用户名和密码');
         return false;
       }
     } catch (error: any) {
-      const errorMessage = error?.response?.data?.message || error?.message || '登录失败，请重试';
+      const errorMessage =
+        error?.response?.data?.message || error?.message || '登录失败，请重试';
       message.error(errorMessage);
       return false;
     }
-  };
-
-  // 跳过登录（开发阶段使用）
-  const handleSkipLogin = async () => {
-    // 设置模拟的登录信息
-    const mockUserInfo: API.UserSession = {
-      sessionId: 'dev-session-' + Date.now(),
-      userId: 1,
-      username: '开发用户',
-      phone: '13003629527',
-      role: 'admin',
-      tenantId: 1,
-      tenantName: '开发租户',
-      tenantCode: 'DEV',
-    };
-
-    localStorage.setItem('sessionId', mockUserInfo.sessionId || '');
-    localStorage.setItem('userInfo', JSON.stringify(mockUserInfo));
-
-    // 更新全局状态
-    await setInitialState((s: any) => ({
-      ...s,
-      currentUser: mockUserInfo,
-      isLogin: true,
-    }));
-
-    message.success('已跳过登录（开发模式）');
-    const urlParams = new URL(window.location.href).searchParams;
-    history.push(urlParams.get('redirect') || '/home');
   };
 
   return (
@@ -132,15 +104,9 @@ const Login: React.FC = () => {
             ]}
           />
         </LoginForm>
-        <div style={{ textAlign: 'center', marginTop: 16 }}>
-          <Button type="link" onClick={handleSkipLogin}>
-            跳过登录（开发模式）
-          </Button>
-        </div>
       </div>
     </div>
   );
 };
 
 export default Login;
-

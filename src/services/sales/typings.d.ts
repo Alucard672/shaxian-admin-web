@@ -31,11 +31,6 @@ declare namespace API {
     productId: number;
     productName?: string;
     productCode?: string;
-    colorId: number;
-    colorName?: string;
-    colorCode?: string;
-    batchId: number;
-    batchCode?: string;
     quantity: number;
     unit?: string;
     price: number;
@@ -68,11 +63,6 @@ declare namespace API {
     productId?: number;
     productName?: string;
     productCode?: string;
-    colorId?: number;
-    colorName?: string;
-    colorCode?: string;
-    batchId?: number;
-    batchCode?: string;
     quantity?: number;
     unit?: string;
     price?: number;
@@ -99,4 +89,3 @@ declare namespace API {
     data?: any;
   };
 }
-

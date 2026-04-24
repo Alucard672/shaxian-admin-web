@@ -7,8 +7,9 @@ export default defineConfig({
   request: {},
   proxy: {
     '/api': {
-      target: 'http://120.27.148.45:8082',
+      target: 'http://localhost:8080',
       changeOrigin: true,
+      pathRewrite: { '^/api': '/biz/api' },
     },
   },
   layout: {

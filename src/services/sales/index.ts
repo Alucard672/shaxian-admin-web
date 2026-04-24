@@ -42,14 +42,11 @@ export async function getSalesOrder(
   options?: { [key: string]: any },
 ) {
   const { id } = params;
-  return request<API.ApiResponseSalesOrder>(
-    `${API_BASE_URL}/api/sales/${id}`,
-    {
-      method: 'GET',
-      params: { ...params },
-      ...(options || {}),
-    },
-  );
+  return request<API.ApiResponseSalesOrder>(`/api/sales/${id}`, {
+    method: 'GET',
+    params: { ...params },
+    ...(options || {}),
+  });
 }
 
 /** 更新销售订单 PUT /api/sales/{id} */
@@ -61,18 +58,15 @@ export async function updateSalesOrder(
   options?: { [key: string]: any },
 ) {
   const { id } = params;
-  return request<API.ApiResponseSalesOrder>(
-    `${API_BASE_URL}/api/sales/${id}`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      params: { ...params },
-      data: body,
-      ...(options || {}),
+  return request<API.ApiResponseSalesOrder>(`/api/sales/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    params: { ...params },
+    data: body,
+    ...(options || {}),
+  });
 }
 
 /** 删除销售订单 DELETE /api/sales/{id} */
@@ -83,10 +77,9 @@ export async function deleteSalesOrder(
   options?: { [key: string]: any },
 ) {
   const { id } = params;
-  return request<API.ApiResponseVoid>(`${API_BASE_URL}/api/sales/${id}`, {
+  return request<API.ApiResponseVoid>(`/api/sales/${id}`, {
     method: 'DELETE',
     params: { ...params },
     ...(options || {}),
   });
 }
-
