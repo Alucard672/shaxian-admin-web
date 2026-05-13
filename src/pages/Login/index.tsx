@@ -1,115 +1,131 @@
 import { login } from '@/services/auth';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import { LockOutlined, MobileOutlined } from '@ant-design/icons';
 import { history, useAccess, useModel } from '@umijs/max';
-import { message } from 'antd';
-import React, { useEffect } from 'react';
+import { Button, Form, Input, message } from 'antd';
+import React, { useEffect, useState } from 'react';
 import styles from './index.less';
 
 const Login: React.FC = () => {
   const { setInitialState } = useModel('@@initialState');
   const { isLogin } = useAccess();
+  const [loading, setLoading] = useState(false);
 
-  // 如果已登录，跳转到首页
   useEffect(() => {
-    if (isLogin) {
-      history.push('/home');
-    }
+    if (isLogin) history.push('/home');
   }, [isLogin]);
 
   const handleSubmit = async (values: { phone: string; password: string }) => {
+    setLoading(true);
     try {
       const response = await login(values);
       if (response.success && response.data) {
-        // 管理端只允许平台超级管理员登录
         if (!response.data.superAdmin) {
           message.error('该账号无管理后台权限');
-          return false;
+          return;
         }
-
-        // 保存登录信息到 localStorage
         localStorage.setItem('sessionId', response.data.sessionId || '');
         localStorage.setItem('userInfo', JSON.stringify(response.data));
-
-        // 更新全局状态
         await setInitialState((s: any) => ({
           ...s,
           currentUser: response.data,
           isLogin: true,
         }));
-
-        // 使用 setTimeout 确保状态更新完成后再显示消息和跳转
         setTimeout(() => {
-          message.success('登录成功！');
-          // 跳转到首页
+          message.success('登录成功');
           const urlParams = new URL(window.location.href).searchParams;
           history.push(urlParams.get('redirect') || '/home');
         }, 0);
-
-        return true;
       } else {
-        message.error(response.message || '登录失败，请检查用户名和密码');
-        return false;
+        message.error(response.message || '登录失败');
       }
     } catch (error: any) {
-      const errorMessage =
-        error?.response?.data?.message || error?.message || '登录失败，请重试';
-      message.error(errorMessage);
-      return false;
+      message.error(
+        error?.response?.data?.message || error?.message || '登录失败',
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.content}>
-        <LoginForm
-          logo={
-            <div style={{ fontSize: 32, fontWeight: 'bold', color: '#1890ff' }}>
-              纱线ERP
-            </div>
-          }
-          title="纱线ERP 管理后台"
-          subTitle="仅限平台超级管理员登录"
-          initialValues={{
-            phone: '13003629527',
-          }}
-          onFinish={async (values) => {
-            await handleSubmit(values as { phone: string; password: string });
-          }}
+      {/* 渐变背景 + 模糊光斑 */}
+      <div className={styles.bg}>
+        <div className={`${styles.blob} ${styles.blob1}`} />
+        <div className={`${styles.blob} ${styles.blob2}`} />
+        <div className={`${styles.blob} ${styles.blob3}`} />
+      </div>
+
+      <div className={styles.card}>
+        <div className={styles.brand}>
+          <div className={styles.logo}>纱</div>
+          <div>
+            <div className={styles.brandName}>纱线通 ERP</div>
+            <div className={styles.brandSub}>YARN ERP · 管理后台</div>
+          </div>
+        </div>
+
+        <div className={styles.titleWrap}>
+          <div className={styles.title}>欢迎回来</div>
+          <div className={styles.subtitle}>仅限平台超级管理员登录</div>
+        </div>
+
+        <Form
+          layout="vertical"
+          requiredMark={false}
+          onFinish={handleSubmit}
+          autoComplete="off"
+          className={styles.form}
         >
-          <ProFormText
+          <Form.Item
             name="phone"
-            fieldProps={{
-              size: 'large',
-              prefix: <UserOutlined className={styles.prefixIcon} />,
-            }}
-            placeholder="请输入手机号"
+            label={<span className={styles.label}>手机号</span>}
             rules={[
-              {
-                required: true,
-                message: '请输入手机号!',
-              },
-              {
-                pattern: /^1[3-9]\d{9}$/,
-                message: '请输入正确的手机号格式!',
-              },
+              { required: true, message: '请输入手机号' },
+              { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号' },
             ]}
-          />
-          <ProFormText.Password
+          >
+            <Input
+              size="large"
+              prefix={<MobileOutlined className={styles.icon} />}
+              placeholder="请输入手机号"
+              className={styles.input}
+              maxLength={11}
+            />
+          </Form.Item>
+
+          <Form.Item
             name="password"
-            fieldProps={{
-              size: 'large',
-              prefix: <LockOutlined className={styles.prefixIcon} />,
-            }}
-            placeholder="请输入密码"
-            rules={[
-              {
-                required: true,
-                message: '请输入密码!',
-              },
-            ]}
-          />
-        </LoginForm>
+            label={<span className={styles.label}>密码</span>}
+            rules={[{ required: true, message: '请输入密码' }]}
+          >
+            <Input.Password
+              size="large"
+              prefix={<LockOutlined className={styles.icon} />}
+              placeholder="请输入密码"
+              className={styles.input}
+            />
+          </Form.Item>
+
+          <Form.Item style={{ marginBottom: 0, marginTop: 8 }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              loading={loading}
+              block
+              className={styles.submit}
+            >
+              登 录 进 入 系 统
+            </Button>
+          </Form.Item>
+        </Form>
+
+        <div className={styles.footer}>
+          <span>© 2026 纱线通</span>
+          <span className={styles.dot}>·</span>
+          <span>仅供平台运营使用</span>
+        </div>
       </div>
     </div>
   );

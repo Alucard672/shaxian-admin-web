@@ -5,6 +5,7 @@ export default defineConfig({
   model: {},
   initialState: {},
   request: {},
+  esbuildMinifyIIFE: true,
   proxy: {
     '/api': {
       target: 'http://localhost:8080',
