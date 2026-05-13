@@ -3,9 +3,10 @@ export default (initialState: {
   isLogin?: boolean;
 }) => {
   const isLogin = !!initialState?.isLogin;
+  const isSuperAdmin = !!initialState?.currentUser?.superAdmin && isLogin;
   return {
     isLogin,
-    canAccessTenant: isLogin,
-    canAccessEmployee: isLogin,
+    canAccessAdmin: isSuperAdmin,
+    canAccessTenant: isSuperAdmin,
   };
 };

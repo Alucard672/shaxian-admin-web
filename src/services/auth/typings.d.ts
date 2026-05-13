@@ -16,6 +16,7 @@ declare namespace API {
     tenantId?: number;
     tenantName?: string;
     tenantCode?: string;
+    superAdmin?: boolean;
   };
 
   type ApiResponseUserSession = {
@@ -36,4 +37,3 @@ declare namespace API {
     data?: any;
   };
 }
-

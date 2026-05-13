@@ -21,6 +21,12 @@ const Login: React.FC = () => {
     try {
       const response = await login(values);
       if (response.success && response.data) {
+        // 管理端只允许平台超级管理员登录
+        if (!response.data.superAdmin) {
+          message.error('该账号无管理后台权限');
+          return false;
+        }
+
         // 保存登录信息到 localStorage
         localStorage.setItem('sessionId', response.data.sessionId || '');
         localStorage.setItem('userInfo', JSON.stringify(response.data));
@@ -62,8 +68,8 @@ const Login: React.FC = () => {
               纱线ERP
             </div>
           }
-          title="纱线ERP管理系统"
-          subTitle="欢迎登录"
+          title="纱线ERP 管理后台"
+          subTitle="仅限平台超级管理员登录"
           initialValues={{
             phone: '13003629527',
           }}
