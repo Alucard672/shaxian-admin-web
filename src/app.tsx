@@ -56,7 +56,7 @@ export async function getInitialState(): Promise<{
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
-    title: '纺云 ERP · 管理后台',
+    title: '织云 ERP · 管理后台',
     menu: {
       locale: false,
     },

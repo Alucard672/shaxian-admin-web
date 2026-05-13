@@ -61,10 +61,10 @@ const Login: React.FC = () => {
 
         <div className={styles.heroInner}>
           <div className={styles.brand}>
-            <div className={styles.logo}>纺</div>
+            <div className={styles.logo}>织</div>
             <div>
-              <div className={styles.brandName}>纺云 ERP</div>
-              <div className={styles.brandSub}>FANGYUN · ADMIN</div>
+              <div className={styles.brandName}>织云 ERP</div>
+              <div className={styles.brandSub}>ZHIYUN · ADMIN</div>
             </div>
           </div>
 
@@ -92,7 +92,7 @@ const Login: React.FC = () => {
           </div>
 
           <div className={styles.heroFooter}>
-            © 2026 纺云 ERP · ALL RIGHTS RESERVED
+            © 2026 织云 ERP · ALL RIGHTS RESERVED
           </div>
         </div>
       </div>
@@ -101,10 +101,10 @@ const Login: React.FC = () => {
       <div className={styles.formWrap}>
         <div className={styles.formInner}>
           <div className={styles.brandMobile}>
-            <div className={styles.logoSmall}>纺</div>
+            <div className={styles.logoSmall}>织</div>
             <div>
-              <div className={styles.brandNameSmall}>纺云 ERP</div>
-              <div className={styles.brandSubSmall}>FANGYUN · ADMIN</div>
+              <div className={styles.brandNameSmall}>织云 ERP</div>
+              <div className={styles.brandSubSmall}>ZHIYUN · ADMIN</div>
             </div>
           </div>
 
@@ -169,7 +169,7 @@ const Login: React.FC = () => {
             该入口仅供平台运营使用。租户用户请前往业务端登录。
           </div>
 
-          <div className={styles.footerMobile}>© 2026 纺云 ERP</div>
+          <div className={styles.footerMobile}>© 2026 织云 ERP</div>
         </div>
       </div>
     </div>

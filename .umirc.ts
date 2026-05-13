@@ -14,7 +14,7 @@ export default defineConfig({
     },
   },
   layout: {
-    title: '纺云 ERP · 管理后台',
+    title: '织云 ERP · 管理后台',
   },
   // 在 HTML head 中添加内联脚本以抑制警告
   headScripts: [
