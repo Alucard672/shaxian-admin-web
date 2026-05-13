@@ -1,153 +1,231 @@
-// 玻璃拟态登录页 · admin web
+// 传统 B2B SaaS 风格 · admin web
+// 左侧深色品牌区，右侧浅色表单区
+
 .container {
-  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
   min-height: 100vh;
-  overflow: hidden;
-  background: linear-gradient(135deg, #1e3a8a 0%, #6366f1 40%, #ec4899 100%);
-  padding: 24px;
+  background: #f8fafc;
 }
 
-// 背景：3 个模糊光斑制造层次
-.bg {
+// ─── 左侧品牌区 ─── //
+.hero {
+  display: none;
+  position: relative;
+  width: 44%;
+  overflow: hidden;
+  background: #0f172a;
+  color: #fff;
+
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+}
+
+.heroGrid {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-  pointer-events: none;
+  opacity: 0.04;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 60%) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 60%) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-.blob {
+.heroBlob1 {
   position: absolute;
+  top: -128px;
+  left: -80px;
+  width: 384px;
+  height: 384px;
   border-radius: 50%;
+  background: #4f46e5;
+  opacity: 0.22;
   filter: blur(80px);
-  opacity: 0.55;
-  animation: login-float 18s ease-in-out infinite;
 }
 
-.blob1 {
-  width: 480px;
-  height: 480px;
-  background: #38bdf8;
-  top: -120px;
-  left: -120px;
+.heroBlob2 {
+  position: absolute;
+  right: -48px;
+  bottom: -96px;
+  width: 448px;
+  height: 448px;
+  border-radius: 50%;
+  background: #3b82f6;
+  opacity: 0.2;
+  filter: blur(96px);
 }
 
-.blob2 {
-  width: 380px;
-  height: 380px;
-  background: #f472b6;
-  bottom: -100px;
-  right: -80px;
-  animation-delay: -6s;
-}
-
-.blob3 {
-  width: 300px;
-  height: 300px;
-  background: #a78bfa;
-  top: 40%;
-  left: 50%;
-  animation-delay: -12s;
-}
-
-@keyframes login-float {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate(40px, -30px) scale(1.05);
-  }
-
-  66% {
-    transform: translate(-30px, 40px) scale(0.95);
-  }
-}
-
-// 毛玻璃卡片
-.card {
+.heroInner {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 64px;
   width: 100%;
-  max-width: 420px;
-  padding: 40px 36px 28px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 78%);
-  backdrop-filter: blur(24px) saturate(180%);
-  backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 60%);
-  box-shadow: 0 20px 60px rgba(30, 30, 70, 25%),
-    0 4px 16px rgba(30, 30, 70, 10%), inset 0 1px 0 rgba(255, 255, 255, 70%);
-  animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes card-in {
-  from {
-    opacity: 0;
-    transform: translateY(24px) scale(0.98);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
 
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 28px;
 }
 
 .logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #4338ca 0%, #ec4899 100%);
-  color: #fff;
-  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  font-size: 20px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px rgba(67, 56, 202, 35%);
 }
 
 .brandName {
   font-size: 18px;
   font-weight: 600;
-  color: #1e1b4b;
   letter-spacing: -0.3px;
 }
 
 .brandSub {
-  font-size: 11px;
-  color: #6366f1;
+  font-size: 10px;
+  color: #94a3b8;
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+.taglineMark {
+  font-size: 11px;
+  color: #93c5fd;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.taglineHead {
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.taglineSub {
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  max-width: 360px;
+}
+
+.features {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #e2e8f0;
+    padding: 7px 0;
+
+    span {
+      color: #60a5fa;
+      font-weight: 700;
+    }
+  }
+}
+
+.heroFooter {
+  font-size: 11px;
+  color: #64748b;
   letter-spacing: 1.5px;
+}
+
+// ─── 右侧表单区 ─── //
+.formWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.formInner {
+  width: 100%;
+  max-width: 400px;
+}
+
+.brandMobile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.logoSmall {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #0f172a;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brandNameSmall {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.brandSubSmall {
+  font-size: 10px;
+  color: #64748b;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: 2px;
   margin-top: 2px;
 }
 
 .titleWrap {
-  margin-bottom: 28px;
+  margin-bottom: 32px;
+}
+
+.tag {
+  font-size: 11px;
+  color: #64748b;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
 }
 
 .title {
   font-size: 26px;
   font-weight: 600;
-  color: #1e1b4b;
-  letter-spacing: -0.5px;
+  color: #0f172a;
+  letter-spacing: -0.4px;
   line-height: 1.2;
 }
 
 .subtitle {
-  margin-top: 6px;
-  font-size: 13px;
-  color: #6b7280;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #64748b;
 }
 
 .form {
@@ -162,62 +240,68 @@
 
 .label {
   font-size: 12px;
-  color: #4b5563;
+  color: #334155;
   font-weight: 500;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
 }
 
 .icon {
-  color: #6366f1;
+  color: #94a3b8;
 }
 
 .input {
-  height: 46px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 60%);
-  border: 1px solid rgba(99, 102, 241, 18%);
+  height: 44px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
   transition: all 0.2s;
 
-  &:hover,
+  &:hover {
+    border-color: #cbd5e1;
+  }
+
   &:focus,
   &:focus-within {
-    background: #fff;
-    border-color: #6366f1;
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 12%);
+    border-color: #0f172a;
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 10%);
   }
 }
 
 .submit {
-  height: 48px;
-  border-radius: 10px;
-  font-weight: 600;
-  letter-spacing: 4px;
-  background: linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #ec4899 100%);
+  height: 44px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  background: #0f172a;
   border: none;
-  box-shadow: 0 10px 24px rgba(99, 102, 241, 35%);
-  transition: all 0.2s;
+  letter-spacing: 1px;
+  transition: all 0.15s;
 
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 14px 32px rgba(99, 102, 241, 45%) !important;
-    opacity: 0.95;
+    background: #1e293b !important;
   }
 
   &:active {
-    transform: translateY(0);
+    background: #020617 !important;
   }
 }
 
-.footer {
-  margin-top: 24px;
-  text-align: center;
-  font-size: 11px;
-  color: #6b7280;
-  letter-spacing: 0.3px;
+.notice {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.6;
 }
 
-.dot {
-  margin: 0 8px;
-  color: #cbd5e1;
+.footerMobile {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 11px;
+  color: #94a3b8;
+  letter-spacing: 1px;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
 }

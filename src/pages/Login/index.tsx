@@ -1,5 +1,9 @@
 import { login } from '@/services/auth';
-import { LockOutlined, MobileOutlined } from '@ant-design/icons';
+import {
+  ArrowRightOutlined,
+  LockOutlined,
+  MobileOutlined,
+} from '@ant-design/icons';
 import { history, useAccess, useModel } from '@umijs/max';
 import { Button, Form, Input, message } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -49,82 +53,123 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {/* 渐变背景 + 模糊光斑 */}
-      <div className={styles.bg}>
-        <div className={`${styles.blob} ${styles.blob1}`} />
-        <div className={`${styles.blob} ${styles.blob2}`} />
-        <div className={`${styles.blob} ${styles.blob3}`} />
-      </div>
+      {/* 左侧品牌区（仅桌面） */}
+      <div className={styles.hero}>
+        <div className={styles.heroGrid} />
+        <div className={styles.heroBlob1} />
+        <div className={styles.heroBlob2} />
 
-      <div className={styles.card}>
-        <div className={styles.brand}>
-          <div className={styles.logo}>纱</div>
+        <div className={styles.heroInner}>
+          <div className={styles.brand}>
+            <div className={styles.logo}>纺</div>
+            <div>
+              <div className={styles.brandName}>纺云 ERP</div>
+              <div className={styles.brandSub}>FANGYUN · ADMIN</div>
+            </div>
+          </div>
+
           <div>
-            <div className={styles.brandName}>纱线通 ERP</div>
-            <div className={styles.brandSub}>YARN ERP · 管理后台</div>
+            <div className={styles.taglineMark}>PLATFORM CONSOLE</div>
+            <h2 className={styles.taglineHead}>平台管理后台</h2>
+            <p className={styles.taglineSub}>
+              租户管理 · 套餐订阅 · 平台运营 一体化控制台
+            </p>
+
+            <ul className={styles.features}>
+              <li>
+                <span>·</span>租户全生命周期管理
+              </li>
+              <li>
+                <span>·</span>套餐定价 / 并发授权
+              </li>
+              <li>
+                <span>·</span>到期监控 / 续费记录
+              </li>
+              <li>
+                <span>·</span>实时活跃会话审计
+              </li>
+            </ul>
+          </div>
+
+          <div className={styles.heroFooter}>
+            © 2026 纺云 ERP · ALL RIGHTS RESERVED
           </div>
         </div>
+      </div>
 
-        <div className={styles.titleWrap}>
-          <div className={styles.title}>欢迎回来</div>
-          <div className={styles.subtitle}>仅限平台超级管理员登录</div>
-        </div>
+      {/* 右侧表单区 */}
+      <div className={styles.formWrap}>
+        <div className={styles.formInner}>
+          <div className={styles.brandMobile}>
+            <div className={styles.logoSmall}>纺</div>
+            <div>
+              <div className={styles.brandNameSmall}>纺云 ERP</div>
+              <div className={styles.brandSubSmall}>FANGYUN · ADMIN</div>
+            </div>
+          </div>
 
-        <Form
-          layout="vertical"
-          requiredMark={false}
-          onFinish={handleSubmit}
-          autoComplete="off"
-          className={styles.form}
-        >
-          <Form.Item
-            name="phone"
-            label={<span className={styles.label}>手机号</span>}
-            rules={[
-              { required: true, message: '请输入手机号' },
-              { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号' },
-            ]}
+          <div className={styles.titleWrap}>
+            <div className={styles.tag}>SIGN IN</div>
+            <div className={styles.title}>登录管理后台</div>
+            <div className={styles.subtitle}>仅限平台超级管理员登录</div>
+          </div>
+
+          <Form
+            layout="vertical"
+            requiredMark={false}
+            onFinish={handleSubmit}
+            autoComplete="off"
+            className={styles.form}
           >
-            <Input
-              size="large"
-              prefix={<MobileOutlined className={styles.icon} />}
-              placeholder="请输入手机号"
-              className={styles.input}
-              maxLength={11}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            label={<span className={styles.label}>密码</span>}
-            rules={[{ required: true, message: '请输入密码' }]}
-          >
-            <Input.Password
-              size="large"
-              prefix={<LockOutlined className={styles.icon} />}
-              placeholder="请输入密码"
-              className={styles.input}
-            />
-          </Form.Item>
-
-          <Form.Item style={{ marginBottom: 0, marginTop: 8 }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              size="large"
-              loading={loading}
-              block
-              className={styles.submit}
+            <Form.Item
+              name="phone"
+              label={<span className={styles.label}>手机号</span>}
+              rules={[
+                { required: true, message: '请输入手机号' },
+                { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号' },
+              ]}
             >
-              登 录 进 入 系 统
-            </Button>
-          </Form.Item>
-        </Form>
+              <Input
+                size="large"
+                prefix={<MobileOutlined className={styles.icon} />}
+                placeholder="请输入手机号"
+                className={styles.input}
+                maxLength={11}
+              />
+            </Form.Item>
 
-        <div className={styles.footer}>
-          <span>© 2026 纱线通</span>
-          <span className={styles.dot}>·</span>
-          <span>仅供平台运营使用</span>
+            <Form.Item
+              name="password"
+              label={<span className={styles.label}>密码</span>}
+              rules={[{ required: true, message: '请输入密码' }]}
+            >
+              <Input.Password
+                size="large"
+                prefix={<LockOutlined className={styles.icon} />}
+                placeholder="请输入密码"
+                className={styles.input}
+              />
+            </Form.Item>
+
+            <Form.Item style={{ marginBottom: 0, marginTop: 4 }}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                size="large"
+                loading={loading}
+                block
+                className={styles.submit}
+              >
+                登 录 <ArrowRightOutlined />
+              </Button>
+            </Form.Item>
+          </Form>
+
+          <div className={styles.notice}>
+            该入口仅供平台运营使用。租户用户请前往业务端登录。
+          </div>
+
+          <div className={styles.footerMobile}>© 2026 纺云 ERP</div>
         </div>
       </div>
     </div>
